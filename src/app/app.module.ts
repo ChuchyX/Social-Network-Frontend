@@ -11,6 +11,8 @@ import { RegisterComponent } from './components/register/register.component'
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,15 @@ import { AuthInterceptor } from './services/auth.interceptor';
     NavbarComponent,
     FooterComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatBadgeModule
   ],
   providers: [
     {

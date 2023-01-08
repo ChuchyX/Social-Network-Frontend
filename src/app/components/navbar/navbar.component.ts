@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReturnUser } from 'src/app/models/ReturnUser';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -11,10 +12,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router, private userService: UsersService) { }
 
-  user: any;
+  user: ReturnUser = new ReturnUser();
 
   ngOnInit(): void {
-    
+    this.cargarDatosUser();
   }
 
   Register()
@@ -35,6 +36,17 @@ export class NavbarComponent implements OnInit {
   {
     localStorage.removeItem('authToken');
     this.router.navigate(['']);
+  }
+
+  cargarDatosUser()
+  {  
+      this.userService.getMe().subscribe(data => {
+        console.log(data);
+        this.user = data;
+      }, error => {
+        console.log(error);
+      })
+    
   }
 
 }

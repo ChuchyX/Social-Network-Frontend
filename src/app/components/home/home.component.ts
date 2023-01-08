@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   user: ReturnUser = new ReturnUser();
 
+
   ngOnInit(): void {
 
     this.cargarDatosUser();
@@ -28,7 +29,6 @@ export class HomeComponent implements OnInit {
       this.userService.getMe().subscribe(data => {
         console.log(data);
         this.user = data;
-        //this.user = data;
       }, error => {
         console.log(error);
       })
