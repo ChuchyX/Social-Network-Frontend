@@ -1,10 +1,12 @@
-<div *ngIf="IsAuthenticated">
-    ESTAS AUTENTICADO!!!!!!
-</div>
-
-
 <div class="container mt-5" *ngIf="!IsAuthenticated">
     <img src="../../../assets/img/portada.svg" class="img-fluid" alt="...">
 </div>
+
+<div *ngIf="IsAuthenticated">
+    ESTAS AUTENTICADO!!!!!! {{user.username}}
+</div>
+
+
+
 
 

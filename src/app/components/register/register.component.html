@@ -14,7 +14,7 @@
                 <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                    <input type="text" id="form3Example1c" class="form-control" />
+                    <input type="text" id="form3Example1c" class="form-control" [(ngModel)]="user.username" name="username"/>
                     <label class="form-label" for="form3Example1c">Your Name</label>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                 <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                    <input type="email" id="form3Example3c" class="form-control" [(ngModel)]="user.username" name="username"/>
+                    <input type="email" id="form3Example3c" class="form-control" [(ngModel)]="user.email" name="email"/>
                     <label class="form-label" for="form3Example3c">Your Email</label>
                     </div>
                 </div>
@@ -35,13 +35,25 @@
                     </div>
                 </div>
 
-                <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                <div class="d-flex flex-row align-items-center mb-4">                   
+                    <i class="fas fa-input-numeric fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                    <input type="password" id="form3Example4cd" class="form-control" />
-                    <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                        <input type="number" id="tentacles" name="tentacles" min="18" max="120" [(ngModel)]="user.edad" name="edad">
+                    <label class="form-label" for="form3Example4cd" style="margin-left: 5px;">Edad</label>
                     </div>
                 </div>
+
+                <div class="d-flex flex-row align-items-center mb-4">                   
+                    <i class="fas fa-input-numeric fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                    <select class="form-select" aria-label="Default select example" name="sexo" [(ngModel)]="user.sexo" name="sexo">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                    <label class="form-label" for="form3Example4cd" style="margin-left: 5px;">Sexo</label>
+                    </div>
+                </div>
+
 
                 <div class="form-check d-flex justify-content-center mb-5">
                     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />

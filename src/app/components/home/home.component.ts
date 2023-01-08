@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReturnUser } from 'src/app/models/ReturnUser';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UsersService) { }
+
+
+  user: ReturnUser = new ReturnUser();
 
   ngOnInit(): void {
+
+    this.cargarDatosUser();
   }
 
   public get IsAuthenticated(): boolean {
     return (localStorage.getItem('authToken') !== null)
+  }
+
+  cargarDatosUser()
+  {  
+      this.userService.getMe().subscribe(data => {
+        console.log(data);
+        this.user = data;
+        //this.user = data;
+      }, error => {
+        console.log(error);
+      })
+    
   }
 
 }
