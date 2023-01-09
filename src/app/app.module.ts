@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatBadgeModule} from '@angular/material/badge';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     FooterComponent,
     RegisterComponent,
     LoginComponent,
+    MyProfileComponent,
   ],
   imports: [
     BrowserModule,
