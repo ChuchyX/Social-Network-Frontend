@@ -1,0 +1,9 @@
+#myProfPict{
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: blue;
+}
+
+.text-muted i {
+    margin: 0 10px;
+}
