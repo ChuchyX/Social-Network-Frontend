@@ -13,4 +13,8 @@ export class UsersService {
    public getMe(): Observable<any>{
       return this.http.get('https://localhost:7190/api/Auth/getme');
    }
+
+   public getPPicture(){
+      return this.http.get('https://localhost:7190/api/Auth/getppicture', {responseType:'blob'});
+   }
 }
