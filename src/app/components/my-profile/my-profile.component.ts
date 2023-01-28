@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ReturnUser } from 'src/app/models/ReturnUser';
 import { UploadService } from 'src/app/services/upload.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -9,12 +11,24 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class MyProfileComponent implements OnInit {
 
-  url = '';
+  image : any;
 
-  constructor(private uploadService: UploadService, private uService: UsersService) { }
+  url = false;
+
+  user: ReturnUser = new ReturnUser();
+
+  constructor(private uploadService: UploadService, private sanitizer: DomSanitizer, private userService: UsersService) { }
 
   ngOnInit(): void {
+    if(this.IsAuthenticated)
+    {
+      this.cargarDatosUser();
+    }
     this.readPPicture();
+  }
+
+  public get IsAuthenticated(): boolean {
+    return (localStorage.getItem('authToken') !== null)
   }
 
   handleFileInput(event: Event)
@@ -42,10 +56,28 @@ export class MyProfileComponent implements OnInit {
 
   readPPicture()
   {
-    this.uService.getPPicture().subscribe(data => {
+    this.url = false;
+    this.userService.getPPicture().subscribe(data => {
       console.log(data);
-      this.url = window.URL.createObjectURL(data);
-    })
+      // this.url = window.URL.createObjectURL(data);
+
+      let objectURL = URL.createObjectURL(data); 
+      this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL); 
+    
+    }, err => {
+      this.url = true;
+      
+    });
+  }
+
+  async cargarDatosUser()
+  {  
+      this.userService.getMe().subscribe(data => {
+        this.user = data;
+      }, error => {
+        console.log(error);
+      })
+    
   }
 
 }

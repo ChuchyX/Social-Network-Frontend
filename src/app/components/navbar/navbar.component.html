@@ -58,11 +58,28 @@
           <div class="dropdown" style="color: white; margin-right: 20px;">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img
-                src="../../../assets/img/perfilH.png"
+                [src]="image"
                 class="rounded-circle"
                 height="25"
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
+                *ngIf="!url"
+              />        
+              <img
+              src="../../../assets/img/perfilH.png"
+                class="rounded-circle"
+                height="25"
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+                *ngIf="url && user.sexo === 'Masculino'"
+              />        
+              <img
+              src="../../../assets/img/perfilM.png"
+                class="rounded-circle"
+                height="25"
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+                *ngIf="url && user.sexo === 'Femenino'"
               />        
             </a>
             <ul class="dropdown-menu">

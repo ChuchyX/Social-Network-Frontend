@@ -17,12 +17,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  Login()
+  async Login()
   {
-    this.authService.login(this.user).subscribe((token: string) => {
+    await this.authService.login(this.user).subscribe((token: string) => {
       localStorage.setItem('authToken', token);
-      this.router.navigate(['']);
+      
     })
+    this.router.navigate(['']);
   }
 
 }

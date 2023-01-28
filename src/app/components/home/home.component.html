@@ -26,11 +26,30 @@
                         
                         <div class="card-body">
                             <img
+                            [src]="image"
+                            class="rounded-circle mb-2"
+                            height="50"
+                            alt="Black and White Portrait of a Man"
+                            loading="lazy"
+                            *ngIf="!url"
+                          /> 
+
+                          <img
                             src="../../../assets/img/perfilH.png"
                             class="rounded-circle mb-2"
                             height="50"
                             alt="Black and White Portrait of a Man"
                             loading="lazy"
+                            *ngIf="url && user.sexo === 'Masculino'"
+                          /> 
+
+                          <img
+                            src="../../../assets/img/perfilM.png"
+                            class="rounded-circle mb-2"
+                            height="50"
+                            alt="Black and White Portrait of a Man"
+                            loading="lazy"
+                            *ngIf="url && user.sexo === 'Femenino'"
                           /> 
                           
                           <textarea class="form-control mb-2" id="textPublish" rows="1" placeholder="What do you want to publish?"></textarea>

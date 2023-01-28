@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ReturnUser } from 'src/app/models/ReturnUser';
 import { UsersService } from 'src/app/services/users.service';
@@ -10,13 +11,41 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UsersService) { }
+  constructor(private router: Router, private userService: UsersService, private uService: UsersService, private sanitizer: DomSanitizer) { }
 
   user: ReturnUser = new ReturnUser();
 
+  image : any;
+
+  url = false;
+
+
   ngOnInit(): void {
-    this.cargarDatosUser();
+    if(this.IsAuthenticated)
+    {
+      this.cargarDatosUser();
+    }
+    this.readPPicture();
   }
+
+
+  readPPicture()
+  {
+    this.url = false;
+    this.uService.getPPicture().subscribe(data => {
+      console.log(data);
+      // this.url = window.URL.createObjectURL(data);
+
+      let objectURL = URL.createObjectURL(data); 
+      this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL); 
+    
+    }, err => {
+      this.url = true;
+      
+    });
+  }
+
+
 
   Register()
   {
