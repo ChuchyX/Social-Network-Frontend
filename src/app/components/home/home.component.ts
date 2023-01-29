@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
     {
       this.cargarDatosUser();
     }
-    this.readPPicture();
   }
 
   public get IsAuthenticated(): boolean {
@@ -55,11 +54,43 @@ export class HomeComponent implements OnInit {
 
 
   cargarDatosUser()
-  {  
+  {
+    this.url = false;  
       this.userService.getMe().subscribe(data => {
+
         this.user = data;
+
+        console.log(this.user);
+
+        // var binaryData = [];
+        // binaryData.push(data.image);
+        // let objectURL = URL.createObjectURL(new Blob(binaryData, {type: "image/jpg"}))
+         
+        // this.user.image = this.sanitizer.bypassSecurityTrustUrl(objectURL); 
+
+        // this.image = this.user.image;
+
+        // let objectURL = 'data:image/jpg;base64,' + data.image;
+        // this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+
+        if(this.user.image === null)
+        {
+          this.url = true
+        }
+        else
+        {
+            var imgSrc = 'data:image/jpeg;base64,' + 
+                          (this.sanitizer.bypassSecurityTrustResourceUrl(data.image.fileContents) as any).changingThisBreaksApplicationSecurity;
+                 
+            this.image = imgSrc;
+
+        }
+
+        
+
       }, error => {
         console.log(error);
+        this.url = true;
       })
     
   }

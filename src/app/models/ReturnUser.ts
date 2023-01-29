@@ -3,4 +3,5 @@ export class ReturnUser{
     email = '';
     edad = 0;
     sexo = '';
+    image: any;
 }

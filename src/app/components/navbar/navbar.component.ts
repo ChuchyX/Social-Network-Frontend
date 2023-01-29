@@ -21,11 +21,11 @@ export class NavbarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(this.IsAuthenticated)
-    {
-      this.cargarDatosUser();
-    }
-    this.readPPicture();
+    // if(this.IsAuthenticated)
+    // {
+    //   this.cargarDatosUser();
+    // }
+    // this.readPPicture();
   }
 
 
