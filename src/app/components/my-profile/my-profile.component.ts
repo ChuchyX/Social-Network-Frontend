@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReturnUser } from 'src/app/models/ReturnUser';
+import { TransferDataService } from 'src/app/services/transfer-data.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -15,16 +16,26 @@ export class MyProfileComponent implements OnInit {
 
   url = false;
 
-  user: ReturnUser = new ReturnUser();
+  userProfile: ReturnUser | undefined;
 
-  constructor(private uploadService: UploadService, private sanitizer: DomSanitizer, private userService: UsersService) { }
+  constructor(private uploadService: UploadService, private sanitizer: DomSanitizer, private userService: UsersService, private transferData: TransferDataService) { }
 
   ngOnInit(): void {
-    if(this.IsAuthenticated)
-    {
-      this.cargarDatosUser();
-    }
-    this.readPPicture();
+      this.transferData.myTrigger.subscribe(data => {
+      this.userProfile = data.data;
+      if(this.IsAuthenticated)
+      {
+          if(this.userProfile?.image === null)
+          {
+            this.url = true
+          }
+          else
+          {
+            this.image = 'data:image/jpeg;base64,' + 
+                            (this.sanitizer.bypassSecurityTrustResourceUrl(this.userProfile?.image.fileContents) as any).changingThisBreaksApplicationSecurity;
+          }
+      }
+     })
   }
 
   public get IsAuthenticated(): boolean {
@@ -53,31 +64,4 @@ export class MyProfileComponent implements OnInit {
   {
     this.uploadService.postFile(file).subscribe(() => {});
   }
-
-  readPPicture()
-  {
-    this.url = false;
-    this.userService.getPPicture().subscribe(data => {
-      console.log(data);
-      // this.url = window.URL.createObjectURL(data);
-
-      let objectURL = URL.createObjectURL(data); 
-      this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL); 
-    
-    }, err => {
-      this.url = true;
-      
-    });
-  }
-
-  async cargarDatosUser()
-  {  
-      this.userService.getMe().subscribe(data => {
-        this.user = data;
-      }, error => {
-        console.log(error);
-      })
-    
-  }
-
 }

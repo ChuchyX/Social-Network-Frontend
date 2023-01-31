@@ -1,10 +1,14 @@
-<div class="container mt-5" *ngIf="!IsAuthenticated">
+
+
+  <div class="container mt-5" *ngIf="!IsAuthenticated">
     <img src="../../../assets/img/portada.svg" class="img-fluid" alt="...">
 </div>
 
+
+
 <div *ngIf="IsAuthenticated">
 
-    
+  <ng-container *ngIf="userHome">
 
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasDarkLabel">
       <div class="offcanvas-header">
@@ -40,7 +44,7 @@
                             height="50"
                             alt="Black and White Portrait of a Man"
                             loading="lazy"
-                            *ngIf="url && user.sexo === 'Masculino'"
+                            *ngIf="url && userHome.sexo === 'Masculino'"
                           /> 
 
                           <img
@@ -49,7 +53,7 @@
                             height="50"
                             alt="Black and White Portrait of a Man"
                             loading="lazy"
-                            *ngIf="url && user.sexo === 'Femenino'"
+                            *ngIf="url && userHome.sexo === 'Femenino'"
                           /> 
                           
                           <textarea class="form-control mb-2" id="textPublish" rows="1" placeholder="What do you want to publish?"></textarea>
@@ -107,14 +111,17 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <button class="btn btn-primary mt-3" type="button" id="buttonChat" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Chat <i class="fa-solid fa-arrow-right"></i></button>
                 </div>               
-            </div>
-            
-            
-            
-           
+            </div>          
         </div>
     </div>
+
+</ng-container>
 </div>
+
+
+
+
+
 
 
 
