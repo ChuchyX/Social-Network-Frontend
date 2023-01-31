@@ -17,8 +17,6 @@ export class HomeComponent implements OnInit {
 
   url = false;
   userHome: ReturnUser | undefined;
-
-  userHome2: ReturnUser | undefined;
   
   constructor(private userService: UsersService, private sanitizer: DomSanitizer, private authServ: AuthService, private transferData: TransferDataService) { }
   
