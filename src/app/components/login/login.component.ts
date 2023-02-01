@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   {
     await this.authService.login(this.user).subscribe((token: string) => {
       localStorage.setItem('authToken', token);
-      
+      this.router.navigate(['home']);   
     })
-    this.router.navigate(['']);
+    
   }
 
 }

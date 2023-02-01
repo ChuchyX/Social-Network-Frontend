@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   {
     this.user.sexo = this.sexo;
     this.authService.register(this.user).subscribe();
-    this.router.navigate(['']);
+    this.router.navigate(['/home']);
   }
  
 }
