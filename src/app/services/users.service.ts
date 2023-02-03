@@ -26,7 +26,4 @@ export class UsersService {
       )
    }
 
-   public getPPicture(){
-      return this.http.get('https://localhost:7190/api/Auth/getppicture', {responseType:'blob'});
-   }
 }

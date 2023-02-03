@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   }
   
   ngOnInit(): void{
+    this.userHome = undefined;
     if(this.IsAuthenticated)
     {
       this.userHome$.subscribe(u => {

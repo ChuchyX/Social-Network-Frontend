@@ -10,7 +10,7 @@ export class UploadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  postFile(fileToUpload: File): Observable<Object> 
+  postFile(fileToUpload: File): Observable<any> 
   {
     const formData = new FormData();
     formData.append('file', fileToUpload);

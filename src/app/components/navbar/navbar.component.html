@@ -61,6 +61,7 @@
                 [src]="image"
                 class="rounded-circle"
                 height="25"
+                width="25"
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
                 *ngIf="!url"
@@ -69,6 +70,7 @@
               src="../../../assets/img/perfilH.png"
                 class="rounded-circle"
                 height="25"
+                width="25"
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
                 *ngIf="url && userNav.sexo === 'Masculino'"
@@ -76,13 +78,18 @@
               <img
               src="../../../assets/img/perfilM.png"
                 class="rounded-circle"
-                height="25"
+                height="25" 
+                width="25"              
                 alt="Black and White Portrait of a Man"
                 loading="lazy"
                 *ngIf="url && userNav.sexo === 'Femenino'"
               />        
             </a>
             <ul class="dropdown-menu">
+              <li><span class="dropdown-item">
+                &nbsp; {{userNav.email}}
+              </span></li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" [routerLink]="['/myprofile']" style="cursor: pointer;">
                 <i class="fa-solid fa-user"></i> &nbsp; Profile
               </a></li>

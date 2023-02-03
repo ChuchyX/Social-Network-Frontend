@@ -23,10 +23,11 @@ export class MyProfileComponent implements OnInit {
   private userProfile$: Observable<ReturnUser>;
 
   constructor(private uploadService: UploadService, private sanitizer: DomSanitizer, private sharingServ: SharingService) { 
-    this.userProfile$ = sharingServ.GetMyObservableUser;
+    
   }
 
   ngOnInit(): void {
+    this.userProfile$ = this.sharingServ.GetMyObservableUser;
     if(this.IsAuthenticated)
     {
       this.userProfile$.subscribe(u => {
@@ -71,6 +72,10 @@ export class MyProfileComponent implements OnInit {
 
   postFile(file: File)
   {
-    this.uploadService.postFile(file).subscribe(() => {});
+    this.uploadService.postFile(file).subscribe((u: ReturnUser) => {
+      console.log('user upload', u);
+      this.sharingServ.setMyObservableUser = u;
+      this.ngOnInit();
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReturnUser } from './models/ReturnUser';
 import { AuthService } from './services/auth.service';
@@ -14,14 +15,21 @@ import { UsersService } from './services/users.service';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private userService: UsersService, private sanitizer: DomSanitizer, private sharingServ: SharingService){}
+  constructor(private userService: UsersService, private sanitizer: DomSanitizer, private sharingServ: SharingService){
+    this.userHome$ = sharingServ.GetMyObservableUser;
+  }
 
   userApp: ReturnUser = new ReturnUser();
+
+  private userHome$: Observable<ReturnUser>;
 
   ngOnInit(): void{
     if(this.IsAuthenticated)
     {
       this.cargarDatosUser();
+      this.userHome$.subscribe(u => {
+        this.userApp = u;
+      });       
     }  
   }
 
