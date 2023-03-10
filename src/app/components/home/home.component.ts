@@ -1,4 +1,10 @@
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnInit,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -11,40 +17,42 @@ import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
-  image : any;
+  image: any;
   url = false;
   userHome: ReturnUser | undefined;
   private userHome$: Observable<ReturnUser>;
-  
-  constructor(private sanitizer: DomSanitizer, private sharingServ: SharingService) { 
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private sharingServ: SharingService
+  ) {
     this.userHome$ = sharingServ.GetMyObservableUser;
   }
-  
-  ngOnInit(): void{
+
+  ngOnInit(): void {
     this.userHome = undefined;
-    if(this.IsAuthenticated)
-    {
-      this.userHome$.subscribe(u => {
+    if (this.IsAuthenticated) {
+      this.userHome$.subscribe((u) => {
         this.userHome = u;
-        if(this.userHome?.image === null)
-        {
-          this.url = true
+        if (this.userHome?.image === null) {
+          this.url = true;
+        } else {
+          this.image =
+            'data:image/jpeg;base64,' +
+            (
+              this.sanitizer.bypassSecurityTrustResourceUrl(
+                this.userHome?.image.fileContents
+              ) as any
+            ).changingThisBreaksApplicationSecurity;
         }
-        else
-        {
-          this.image = 'data:image/jpeg;base64,' + 
-                          (this.sanitizer.bypassSecurityTrustResourceUrl(this.userHome?.image.fileContents) as any).changingThisBreaksApplicationSecurity;
-        }
-      });       
-    }  
+      });
+    }
   }
 
   public get IsAuthenticated(): boolean {
-    return (localStorage.getItem('authToken') !== null)
+    return localStorage.getItem('authToken') !== null;
   }
-
 }
