@@ -4,26 +4,22 @@ import { Observable, Subject, tap } from 'rxjs';
 import { ReturnUser } from '../models/ReturnUser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
+  private _refresh = new Subject<void>();
 
-   private _refresh = new Subject<void>();
+  constructor(private http: HttpClient) {}
 
-   constructor(private http: HttpClient) { }
+  get refresh() {
+    return this._refresh;
+  }
 
-   get refresh()
-   {
-      return this._refresh;
-   }
-
-   
-   public getMe(): Observable<any>{
-      return this.http.get('https://localhost:7190/api/Auth/getme').pipe(
-         tap(() => {
-            this._refresh.next();
-         })
-      )
-   }
-
+  public getMe(): Observable<any> {
+    return this.http.get('https://localhost:7190/api/Auth/getme').pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );
+  }
 }

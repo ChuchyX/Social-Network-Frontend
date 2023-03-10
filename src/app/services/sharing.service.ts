@@ -3,19 +3,17 @@ import { BehaviorSubject } from 'rxjs';
 import { ReturnUser } from '../models/ReturnUser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SharingService {
+  private observableUser: BehaviorSubject<ReturnUser> =
+    new BehaviorSubject<ReturnUser>(new ReturnUser());
 
-  private observableUser: BehaviorSubject<ReturnUser> = new BehaviorSubject<ReturnUser>(new ReturnUser());
-
-  get GetMyObservableUser()
-  {
+  get GetMyObservableUser() {
     return this.observableUser.asObservable();
   }
 
-  set setMyObservableUser(user: ReturnUser)
-  {
+  set setMyObservableUser(user: ReturnUser) {
     this.observableUser.next(user);
   }
 }

@@ -8,34 +8,36 @@ import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
   user = new User();
 
-  constructor(private authService: AuthService, private router: Router, private sharingServ: SharingService, private userService: UsersService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private sharingServ: SharingService,
+    private userService: UsersService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  async Login()
-  {
+  async Login() {
     await this.authService.login(this.user).subscribe((token: string) => {
       localStorage.setItem('authToken', token);
-      this.cargarDatosUser();      
-    })
-    
+      this.cargarDatosUser();
+    });
   }
 
-  cargarDatosUser()
-  {  
-      this.userService.getMe().subscribe(data => {     
+  cargarDatosUser() {
+    this.userService.getMe().subscribe(
+      (data) => {
         this.sharingServ.setMyObservableUser = data;
-        this.router.navigate(['home']);  
-      }, error => {
+        this.router.navigate(['home']);
+      },
+      (error) => {
         console.log(error);
-      })   
+      }
+    );
   }
-
 }

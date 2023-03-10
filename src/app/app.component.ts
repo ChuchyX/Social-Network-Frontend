@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -11,40 +18,42 @@ import { UsersService } from './services/users.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+  userApp: ReturnUser = new ReturnUser();
+  private userHome$: Observable<ReturnUser>;
 
-  constructor(private userService: UsersService, private sanitizer: DomSanitizer, private sharingServ: SharingService){
+  constructor(
+    private userService: UsersService,
+    private sanitizer: DomSanitizer,
+    private sharingServ: SharingService
+  ) {
     this.userHome$ = sharingServ.GetMyObservableUser;
   }
 
-  userApp: ReturnUser = new ReturnUser();
-
-  private userHome$: Observable<ReturnUser>;
-
-  ngOnInit(): void{
-    if(this.IsAuthenticated)
-    {
+  ngOnInit(): void {
+    if (this.IsAuthenticated) {
       this.cargarDatosUser();
-      this.userHome$.subscribe(u => {
+      this.userHome$.subscribe((u) => {
         this.userApp = u;
-      });       
-    }  
+      });
+    }
   }
 
   public get IsAuthenticated(): boolean {
-    return (localStorage.getItem('authToken') !== null)
+    return localStorage.getItem('authToken') !== null;
   }
-  
-  cargarDatosUser()
-  {  
-      this.userService.getMe().subscribe(data => {
+
+  cargarDatosUser() {
+    this.userService.getMe().subscribe(
+      (data) => {
         this.userApp = data;
-        console.log(this.userApp);
         this.sharingServ.setMyObservableUser = this.userApp;
-      }, error => {
+      },
+      (error) => {
         console.log(error);
-      })   
+      }
+    );
   }
 }

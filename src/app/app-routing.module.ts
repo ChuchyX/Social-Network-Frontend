@@ -8,15 +8,19 @@ import { RegisterComponent } from './components/register/register.component';
 import { MyGuardGuard } from './guards/my-guard.guard';
 
 const routes: Routes = [
-  { path: 'home' , component: HomeComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'myprofile', canActivate: [MyGuardGuard], component: MyProfileComponent},
-  { path: '**' , component: HomeComponent}
+  { path: 'home', component: HomeComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'myprofile',
+    canActivate: [MyGuardGuard],
+    component: MyProfileComponent,
+  },
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -9,26 +9,21 @@ import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   user = new RegisterUserDto();
 
   sexo = 'Masculino';
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  register()
-  {
+  register() {
     this.user.sexo = this.sexo;
-    this.authService.register(this.user).subscribe(res => {
+    this.authService.register(this.user).subscribe((res) => {
       this.router.navigate(['/home']);
     });
-    
   }
- 
 }

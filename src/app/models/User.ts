@@ -1,4 +1,4 @@
-export class User{
-    password = '';
-    email = '';    
+export class User {
+  password = '';
+  email = '';
 }

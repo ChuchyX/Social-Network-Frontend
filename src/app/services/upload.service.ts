@@ -4,18 +4,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UploadService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
-
-  postFile(fileToUpload: File): Observable<any> 
-  {
+  postFile(fileToUpload: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', fileToUpload);
-    const headers = new HttpHeaders().append('Content-Disposition', 'multipart/form-data');
+    const headers = new HttpHeaders().append(
+      'Content-Disposition',
+      'multipart/form-data'
+    );
 
-    return this.httpClient.post('https://localhost:7190/api/Auth/uploadProfilePicture', formData, { headers });
+    return this.httpClient.post(
+      'https://localhost:7190/api/Auth/uploadProfilePicture',
+      formData,
+      { headers }
+    );
   }
 }
