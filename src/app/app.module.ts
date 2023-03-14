@@ -14,6 +14,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([])
   ],
   providers: [
     {
